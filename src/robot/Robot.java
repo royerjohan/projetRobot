@@ -162,7 +162,7 @@ public class Robot implements Deplacement {
     * @param ord 
     */
    public void deplace(int abs, int ord){
-       if(this.energie<Math.abs(abs)+Math.abs(ord)){
+       if(this.energie>=Math.abs(abs)+Math.abs(ord)){
        Point2D p= new Point2D(this.getPosition());
        int absfinal=p.getAbscisse()+abs;
        int ordfinal=p.getOrdonne()+ord;
@@ -220,7 +220,8 @@ public class Robot implements Deplacement {
        ArrayList<Point2D> cases= p.casesLibresAutourDe(this.getPosition());
        Random direction = new Random();
        Point2D caseFinale= new Point2D(cases.get(direction.nextInt(cases.size())));
-       this.deplace(caseFinale.getAbscisse(), caseFinale.getOrdonne());
+       System.out.println((caseFinale.getAbscisse()-this.position.getAbscisse())+" ;"+(caseFinale.getOrdonne()-this.position.getOrdonne()));
+       this.deplace((caseFinale.getAbscisse()-this.position.getAbscisse()), (caseFinale.getOrdonne()-this.position.getOrdonne()));
    }
     
 }

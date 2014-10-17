@@ -1,0 +1,12 @@
+Largeur 10
+Hauteur 10
+RobotCombattant Jack 2 1 100 93
+RobotEnergivore John 5 4 100 39
+RobotNeuneu Toby 3 3 80 28
+RobotCombattant Bill 5 9 20 0
+BorneEnergie 4 2 50
+BorneSante 1 1 46
+ObstacleMobile 1 8
+ObstacleMobile 6 9
+ObstacleFixe 3 6
+ObstacleFixe 7 2

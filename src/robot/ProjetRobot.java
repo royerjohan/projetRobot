@@ -6,6 +6,10 @@
 
 package robot;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author johan
@@ -17,21 +21,23 @@ public class ProjetRobot {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ChargementPartie c= new ChargementPartie("Test.txt");
+        SauvegarderPartie s= new SauvegarderPartie("Partie.txt");
+        try {
+            PlateauJeu pj= c.chargerpartie();
+            pj.partie();
+            s.sauvegarderPartie(pj);
+        } catch (IOException ex) {
+            Logger.getLogger(ProjetRobot.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProjetRobot.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ProjetRobot.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ProjetRobot.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-         Point2D p1=new Point2D();
-        Point2D p2=new Point2D(3,2);
-        Point2D p3=new Point2D(5,7);
-        Point2D p4=new Point2D(4,4);
-        RobotNeuneu r=new RobotNeuneu("Jean",p1);
-        RobotCombattant r2= new RobotCombattant("Francis",p4);
-        ObstacleMobile o= new ObstacleMobile(p2);
-        BorneEnergie b= new BorneEnergie(p3);
-        PlateauJeu p=new PlateauJeu(30,30);
-        p.addRobot(r);
-        p.addRobot(r2);
-        p.addObstacle(o);
-        p.addBonus(b);
-        p.partie();
+         
     }
     
     

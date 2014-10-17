@@ -11,6 +11,11 @@ package robot;
  * @author johan
  */
 public class RobotCombattant extends Robot {
+    
+    public RobotCombattant(){
+        super();
+    }
+    
     public RobotCombattant(String name, Point2D position, int energie, int ptvie){
          super(name,position,energie,ptvie);
      }

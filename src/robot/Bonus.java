@@ -10,9 +10,12 @@ package robot;
  *
  * @author johan
  */
-public class Bonus {
+public abstract class Bonus {
     private Point2D position;
     
+    public Bonus(){
+        this.position = new Point2D(0,0);
+    }
     public Bonus(Point2D position){
         this.position=position;
     }
@@ -31,4 +34,6 @@ public class Bonus {
     public void setPostion(int abs, int ord){
         this.position=new Point2D(abs,ord);
     }
+    public abstract void setJauge(int jauge);
+    public abstract int getJauge();
 }

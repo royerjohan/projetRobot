@@ -11,6 +11,10 @@ package robot;
  * @author johan
  */
 public class ObstacleFixe extends Obstacle {
+    
+    public ObstacleFixe(){
+        super();
+    }
 
     public ObstacleFixe(Point2D position) {
         super(position);

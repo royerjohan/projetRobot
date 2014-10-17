@@ -11,6 +11,10 @@ package robot;
  * @author johan
  */
 public class RobotNeuneu extends Robot{
+    public RobotNeuneu(){
+        super();
+    }
+    
     public RobotNeuneu(String name, Point2D position, int energie, int ptvie){
          super(name,position,energie,ptvie);
      }

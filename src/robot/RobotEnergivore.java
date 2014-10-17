@@ -11,6 +11,9 @@ package robot;
  * @author johan
  */
 public class RobotEnergivore extends Robot {
+    public RobotEnergivore(){
+        super();
+    }
      public RobotEnergivore(String name, Point2D position, int energie, int ptvie){
          super(name,position,energie,ptvie);
      }

@@ -16,7 +16,10 @@ public class BorneSante extends Bonus {
     private int reserveSante;
     final int BORNE_DEFAUT_SANTE=50;
     
-   
+   public BorneSante(){
+       super();
+       this.reserveSante=BORNE_DEFAUT_SANTE;
+   }
     public BorneSante(Point2D position) {
          super(position);
         reserveSante=BORNE_DEFAUT_SANTE;
@@ -69,5 +72,14 @@ public class BorneSante extends Bonus {
     
     public String toString(){
         return ("Je suis une Borne de sante, il me reste "+this.getSante()+" points d'énergie, je suis en position ["+this.getPosition().getAbscisse()+","+this.getPosition().getOrdonne()+"]");
+    }
+
+    
+    public void setJauge(int jauge) {
+        this.reserveSante=jauge;
+    }
+    
+    public int getJauge(){
+        return this.reserveSante;
     }
 }

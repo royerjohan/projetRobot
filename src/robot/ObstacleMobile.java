@@ -14,7 +14,11 @@ import java.util.Random;
  * @author johan
  */
 public class ObstacleMobile extends Obstacle implements Deplacement{
-
+    
+    public ObstacleMobile(){
+        super();
+    }
+    
     public ObstacleMobile(Point2D position) {
         super(position);
     }

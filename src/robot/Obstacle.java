@@ -13,6 +13,10 @@ package robot;
 public class Obstacle {
     private Point2D position;
     
+    public Obstacle(){
+        this.position= new Point2D(0,0);
+    }
+    
     public Obstacle(Point2D position){
         this.position=position;
     }

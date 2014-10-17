@@ -48,6 +48,18 @@ public class PlateauJeu {
    public int getHauteur(){
        return this.hauteur;
    }
+   
+   public ArrayList<Robot> getListeRobot(){
+       return this.listeRobot;
+   }
+   
+   public ArrayList<Obstacle> getListeObstacle(){
+       return this.listeObstacle;
+   }
+   
+   public ArrayList<Bonus> getListeBonus(){
+       return this.listeBonus;
+   }
    /**
     * modifie la largeur du plateau
     * @param l 
@@ -131,6 +143,7 @@ public class PlateauJeu {
     */
    public void affichePlateau(){
        System.out.println("Sur ce plateau de jeu de taille ["+this.getLargeur()+","+this.getHauteur()+"] se trouvent les pièces suivantes");
+                  System.out.println(this.listeRobot.size());
        for(int i=0; i<this.listeRobot.size();i++){
            System.out.println(this.listeRobot.get(i).toString());
        }
@@ -154,7 +167,7 @@ public class PlateauJeu {
            listeRobot.get(i).bouge(this);
        }
        for(int j=0; j<listeObstacle.size();j++){
-           if(listeObstacle.get(j).getClass().getName().equals("ObstacleMobile")){
+           if(listeObstacle.get(j).getClass().getName().equals("robot.ObstacleMobile")){
                ObstacleMobile om= (ObstacleMobile) listeObstacle.get(j);
                om.bouge(this);
            }
@@ -192,7 +205,7 @@ public class PlateauJeu {
        int l=p.getAbscisse();
        int h=p.getOrdonne();
        // chèque les conditions de coords négatives ou trop grandes
-        return 0<=l && l<=this.getLargeur() && 0<=h && h<=this.getHauteur();
+        return !(0<=l && l<=this.getLargeur() && 0<=h && h<=this.getHauteur());
    }
    
    public boolean caseLibre(Point2D p){
