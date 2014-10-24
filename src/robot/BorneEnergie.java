@@ -6,7 +6,10 @@
 
 package robot;
 
+import java.awt.Image;
 import static java.lang.Math.min;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,6 +17,9 @@ import static java.lang.Math.min;
  */
 public class BorneEnergie extends Bonus{
     private int reserveEnergie;
+    private String ressourcePath;
+    private String iconName;
+    private ImageIcon icon;
     final int BORNE_DEFAUT_ENERGIE=50;
     
    public BorneEnergie(){
@@ -22,21 +28,34 @@ public class BorneEnergie extends Bonus{
    }
     public BorneEnergie(Point2D position) {
          super(position);
+         this.ressourcePath="/ressources/";
+         this.iconName="energy.png";
+         this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
+
         reserveEnergie=BORNE_DEFAUT_ENERGIE;
     }
     
     public BorneEnergie(int abs,int ord){
         super(abs,ord);
+        this.ressourcePath="/ressources/";
+        this.iconName="energy.png";
+        this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
         reserveEnergie=BORNE_DEFAUT_ENERGIE;
     }
     
     public BorneEnergie(Point2D position, int energie) {
         super(position);
+        this.ressourcePath="/ressources/";
+        this.iconName="energy.png";
+        this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
         reserveEnergie=energie;
     }
     
     public BorneEnergie(int abs,int ord, int energie){
         super(abs,ord);
+        this.ressourcePath="/ressources/";
+        this.iconName="energy.png";
+        this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
         reserveEnergie=energie;
     }
     
@@ -47,6 +66,23 @@ public class BorneEnergie extends Bonus{
     public void setEnergie(int e){
         this.reserveEnergie=e;
     }
+    
+    private ImageIcon createImageIcon(String path, String description){
+       URL imgURL;
+       ImageIcon res;
+       imgURL = this.getClass().getResource(path);
+       if (imgURL != null){
+           res = new ImageIcon(imgURL, description);
+           //on redimensionne l'image pour qu'elle fasse 40x40 pixels
+           //ATTENTION A CES CONSTANTES !!!!!
+           Image newimg=res.getImage().getScaledInstance(40, 40, java.awt.Image.SCALE_FAST);
+           res = new ImageIcon( newimg);
+       } else {
+           System.err.println("Couldn't find file: "+ path);
+           return null;
+       }
+       return res;
+   }
     /**
      * transfere l'energie donnee au robot, si le robot a besoin de moins 
      * d'energie il ne recoit que l'energie necessaire pour atteindre sa valeur max.

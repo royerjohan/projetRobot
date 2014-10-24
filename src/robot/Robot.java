@@ -6,9 +6,12 @@
 
 package robot;
 
+import java.awt.Image;
 import static java.lang.Math.min;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,6 +23,9 @@ public class Robot implements Deplacement {
    private Point2D position;
    private int energie;
    private int ptvie;
+   private String ressourcePath;
+   private String iconName;
+   private ImageIcon icon;
    /**
     * nbrobot est un entier qui s'incrémente à chaque création de robot,
     * il permet de savoir le nombre total de robots créés.
@@ -39,6 +45,9 @@ public class Robot implements Deplacement {
        position= new Point2D();
        energie= ROBOT_DEFAULT_ENERGIE;
        ptvie=ROBOT_DEFAULT_SANTE;
+       this.ressourcePath="/ressources/";
+       this.iconName="robot.png";
+       this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
        nbrobot+=1;
    }
    /**
@@ -59,6 +68,9 @@ public class Robot implements Deplacement {
        if (ptvie>ROBOT_MAX_SANTE){
            this.ptvie=ROBOT_MAX_SANTE;
        } else this.ptvie=ptvie;
+       this.ressourcePath="/ressources/";
+       this.iconName="robot.png";
+       this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
        nbrobot+=1;
    }
    /**
@@ -72,6 +84,9 @@ public class Robot implements Deplacement {
        this.position=new Point2D(position);
        this.energie=ROBOT_DEFAULT_ENERGIE;
        this.ptvie=ROBOT_DEFAULT_SANTE;
+       this.ressourcePath="/ressources/";
+       this.iconName="robot.png";
+       this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
        nbrobot+=1;
    }
    /**
@@ -84,7 +99,27 @@ public class Robot implements Deplacement {
        this.position=new Point2D(r.position);
        this.energie=r.energie;
        this.ptvie=r.ptvie;
+       this.ressourcePath="/ressources/";
+       this.iconName="robot.png";
+       this.icon=this.createImageIcon(ressourcePath+iconName, ressourcePath);
        nbrobot+=1;
+   }
+   
+   private ImageIcon createImageIcon(String path, String description){
+       URL imgURL;
+       ImageIcon res;
+       imgURL = this.getClass().getResource(path);
+       if (imgURL != null){
+           res = new ImageIcon(imgURL, description);
+           //on redimensionne l'image pour qu'elle fasse 40x40 pixels
+           //ATTENTION A CES CONSTANTES !!!!!
+           Image newimg=res.getImage().getScaledInstance(40, 40, java.awt.Image.SCALE_FAST);
+           res = new ImageIcon( newimg);
+       } else {
+           System.err.println("Couldn't find file: "+ path);
+           return null;
+       }
+       return res;
    }
    /**
     * renvoie le nom du robot sélectionné

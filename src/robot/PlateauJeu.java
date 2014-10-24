@@ -9,6 +9,8 @@ package robot;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -21,6 +23,7 @@ public class PlateauJeu {
     private ArrayList<Robot> listeRobot;
     private ArrayList<Obstacle> listeObstacle;
     private ArrayList<Bonus> listeBonus;
+    private GUIBoard monInterface;        
     /**
      * Lorsque le plateau est créé, il n'y a pas de pièces dessus
      * il faut les rajouter après avec addxxx()
@@ -33,6 +36,7 @@ public class PlateauJeu {
        this.listeRobot= new ArrayList<Robot>();
        this.listeObstacle=new ArrayList<Obstacle>();
        this.listeBonus=new ArrayList<Bonus>();
+       creerGUI(l, h);
    }
    /**
     * Renvoit la largeur du plateau.
@@ -162,9 +166,10 @@ public class PlateauJeu {
     * Cela affecte le comportement de partie();
     * @return 
     */
-   public String tourDeJeu(){
+   public void tourDeJeu(){
        for(int i=0; i<listeRobot.size();i++){
            listeRobot.get(i).bouge(this);
+           this.displayGameElement(listeRobot.get(i).getPosition(),null,listeRobot.get(i).getPtVie()+"pv/"+listeRobot.get(i).getEnergie()+"e", "changer tostring dans robot");
        }
        for(int j=0; j<listeObstacle.size();j++){
            if(listeObstacle.get(j).getClass().getName().equals("robot.ObstacleMobile")){
@@ -173,7 +178,7 @@ public class PlateauJeu {
            }
        }
        this.affichePlateau();
-       Scanner console=new Scanner(System.in);
+       /*Scanner console=new Scanner(System.in);
        System.out.println("Voulez vous continuer la partie? (o/n)");
        String reponse = console.nextLine();
        while ((!reponse.equals("o")) && (!reponse.equals("n"))){
@@ -181,7 +186,7 @@ public class PlateauJeu {
           System.out.println("Voulez vous continuer la partie? (o/n)");
           reponse = console.nextLine(); 
        }
-       return reponse;
+       return reponse;*/
    }
    
    
@@ -190,10 +195,18 @@ public class PlateauJeu {
     * à la fin de son tour de jeu) un nouveau tour commence.
     */
    public void partie(){
-       String reponse=this.tourDeJeu();
-       while(reponse.equals("o")){
-           reponse=this.tourDeJeu();
-       }
+       String reponse="o";
+       int i=0;
+       while(this.monInterface.isActive()){
+           //i=1 si un tour à été joué, il repasse à 0 quand on appuie sur Play puis à 1 quand le tour est fait
+           if(i==0){
+               this.tourDeJeu();
+               this.monInterface.getPlayButton().setText("Play ");
+               i=1;
+           }if(this.monInterface.getPlayButton().getText().equals("Play")){
+               i=0;
+           }
+               }
    }
    /**
     * Renvoit true si le point sélectionné se trouve sur le plateau
@@ -248,6 +261,24 @@ public class PlateauJeu {
    public void jouer(Robot r){
        r.bouge(this);
    }
-   
+   /**
+    * Cree l'interface avec les dimensions du plateau
+    * @param l : largeur de la GUI (boutons)
+    * @param h : hauteur de la GUI (boutons)
+    */
+   public void creerGUI(int l, int h) {
+    this.monInterface = new GUIBoard(l, h);
+    this.monInterface.setVisible(true);
+  }
+   public void displayGameElement(Point2D pos, ImageIcon icon, String textIcon, String textZoneTexte){
+       this.monInterface.getJPlateauButton(pos.getAbscisse(), pos.getOrdonne()).setIcon(icon);
+       this.monInterface.getJPlateauButton(pos.getAbscisse(), pos.getOrdonne()).setDisabledIcon(icon);
+       this.monInterface.getJPlateauButton(pos.getAbscisse(), pos.getOrdonne()).setText(textIcon);
+       this.monInterface.getJPlateauButton(pos.getAbscisse(), pos.getOrdonne()).setVerticalTextPosition(SwingConstants.CENTER);
+       this.monInterface.getJPlateauButton(pos.getAbscisse(), pos.getOrdonne()).setHorizontalTextPosition(SwingConstants.CENTER);
+       this.monInterface.getjZoneText().append(textZoneTexte+"\n");
+
+
+   }
    
 }

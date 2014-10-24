@@ -21,6 +21,7 @@ public class ProjetRobot {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
         ChargementPartie c= new ChargementPartie("Test.txt");
         SauvegarderPartie s= new SauvegarderPartie("Partie.txt");
         try {
